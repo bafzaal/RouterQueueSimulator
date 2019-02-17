@@ -1,6 +1,7 @@
 import java.lang.*;
 
-public class QueueSimulator{
+public class QueueSimulator
+{
   public enum Event { ARRIVAL, DEPARTURE };
   private double currTime;
   private double arrivalRate;
@@ -12,7 +13,8 @@ public class QueueSimulator{
   LinkedListQueue<Data> eventQueue = new LinkedListQueue<Data>();
   private Event e;
   
-  public double getRandTime(double arrivalRate){
+  public double getRandTime(double arrivalRate)
+  {
     double num, time1, max=1, min=0, randNUM;
     randNUM= Math.random();
     time1= (-1/arrivalRate) * (Math.log(1-randNUM));
@@ -20,14 +22,21 @@ public class QueueSimulator{
     return time1;
   }
   
-  public QueueSimulator(double aR, double servT, double simT){
+  public QueueSimulator(double aR, double servT, double simT)
+  {
+
   }
   
-  public double calcAverageWaitingTime(){
+  public double calcAverageWaitingTime()
+  {
+    return 0;
   }
   
-  public double runSimulation(){
+  public double runSimulation()
+  {
+    return 0;
   }
+
 }
 
 

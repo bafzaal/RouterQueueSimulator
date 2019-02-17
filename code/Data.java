@@ -1,14 +1,33 @@
-public class Data{
+public class Data
+{
+
   double arrivalTime;
   double departureTime;
-  public Data(){
+
+  public Data()
+  {
+    arrivalTime = 0;
+    departureTime = 0;
   }
-  public void setArrivalTime(double a){
+
+  public void setArrivalTime(double a)
+  {
+    arrivalTime = a;
   }
-  public void setDepartureTime(double d){
+
+  public void setDepartureTime(double d)
+  {
+    departureTime = d;
   }
-  public double getDepartureTime(){
+
+  public double getDepartureTime()
+  {
+    return departureTime;
   }
-  public double getArrivalTime(){
+
+  public double getArrivalTime()
+  {
+    return arrivalTime;
   }
+
 }
