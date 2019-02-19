@@ -74,17 +74,30 @@ public class SinglyLinkedList<E>
   
   public void addLast(E element)
   {
-    if(head == null)
-      addFirst(element);
+    Node<E> temp = new Node<E>(element,null);
+    if (tail == null) 
+    {
+      tail= temp;
+      head = tail;
+    } 
+    else 
+    {
+      tail.setNext(temp);
+      tail = temp;
+    }
+    size++;
+    /*if(isEmpty())
+    {
+      head = new Node<E>(element,null);
+      tail = head;
+    }
     else
     {
-      Node<E> temp = new Node<E>(element, null);
-      temp = head;
-      while(temp.next != null)
-        temp = temp.next;
-      temp.next = new Node<E>(element, null);
-      size++;
+      Node<E> newTail = new Node<E>(element, null);
+      tail.setNext(newTail);
+      tail = newTail;
     }
+    size++;*/
   }
   
   public E removeFirst()

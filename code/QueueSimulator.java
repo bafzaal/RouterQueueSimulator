@@ -24,17 +24,60 @@ public class QueueSimulator
   
   public QueueSimulator(double aR, double servT, double simT)
   {
-
+    arrivalRate = aR;
+    serviceTime = servT;
+    totalSimTime = simT;
+    currTime = 0;
+    timeForNextArrival = getRandTime(aR);
+    timeForNextDeparture = timeForNextArrival + servT;
   }
   
   public double calcAverageWaitingTime()
   {
-    return 0;
+    int n = 0;
+    double result = 0;
+    while(!eventQueue.isEmpty())
+    {
+      Data temp = new Data();
+      temp = eventQueue.dequeue();
+      result += (temp.getDepartureTime() - temp.getArrivalTime());
+      n++;
+    }
+    return (double)(result / n);
   }
   
   public double runSimulation()
   {
-    return 0;
+    int n = 0;
+    timeForNextDeparture = totalSimTime + 1;
+    while(currTime <= totalSimTime)
+    {
+      if(timeForNextArrival <= timeForNextDeparture)
+      {
+        currTime = timeForNextArrival;
+        n++;
+        timeForNextArrival = currTime + getRandTime(arrivalRate);
+        if(n == 1)
+          timeForNextDeparture = currTime + serviceTime;
+        Data arrBuff = new Data();
+        arrBuff.setArrivalTime(currTime);
+        buffer.enqueue(arrBuff);
+      }
+      else if(timeForNextDeparture < timeForNextArrival && !buffer.isEmpty())
+      {
+        currTime = timeForNextDeparture;
+        n--;
+        if(n > 0)
+          timeForNextDeparture = currTime + serviceTime;
+        else
+          timeForNextDeparture = totalSimTime + 1;
+        Data d = new Data();
+        d = buffer.dequeue();
+        d.setDepartureTime(currTime);
+        eventQueue.enqueue(d);
+      }
+    } 
+    return calcAverageWaitingTime();
   }
 
 }
