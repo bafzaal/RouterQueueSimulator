@@ -76,7 +76,7 @@ public class QueueSimulator
         d.setDepartureTime(currTime);
         eventQueue.enqueue(d);
       }
-    } 
+    }
     return calcAverageWaitingTime();
   }
 

@@ -74,18 +74,23 @@ public class SinglyLinkedList<E>
   
   public void addLast(E element)
   {
-    Node<E> temp = new Node<E>(element,null);
-    if (tail == null) 
+    Node<E> newElement = new Node<E>(element,null);
+    if(isEmpty())
     {
-      tail= temp;
-      head = tail;
-    } 
-    else 
-    {
-      tail.setNext(temp);
-      tail = temp;
+      head = newElement;
     }
+    else
+      tail.setNext(newElement);
+    tail = newElement;
     size++;
+    /*if(isEmpty())
+      addFirst(element);
+    else
+    {
+      tail.next = new Node<E>(element,null);
+      tail = tail.next;
+      size++;
+    }*/
     /*if(isEmpty())
     {
       head = new Node<E>(element,null);
