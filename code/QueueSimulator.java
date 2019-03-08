@@ -18,7 +18,6 @@ public class QueueSimulator
     double num, time1, max=1, min=0, randNUM;
     randNUM= Math.random();
     time1= (-1/arrivalRate) * (Math.log(1-randNUM));
-    //System.out.println(time1);
     return time1;
   }
   
@@ -52,19 +51,9 @@ public class QueueSimulator
     timeForNextDeparture = totalSimTime + 1;
     while(currTime <= totalSimTime)
     {
-      if(timeForNextArrival <= timeForNextDeparture)
+      if(timeForNextDeparture < timeForNextArrival && !buffer.isEmpty())
       {
-        currTime = timeForNextArrival;
-        n++;
-        timeForNextArrival = currTime + getRandTime(arrivalRate);
-        if(n == 1)
-          timeForNextDeparture = currTime + serviceTime;
-        Data arrBuff = new Data();
-        arrBuff.setArrivalTime(currTime);
-        buffer.enqueue(arrBuff);
-      }
-      else if(timeForNextDeparture < timeForNextArrival && !buffer.isEmpty())
-      {
+        e = Event.DEPARTURE;
         currTime = timeForNextDeparture;
         n--;
         if(n > 0)
@@ -75,6 +64,18 @@ public class QueueSimulator
         d = buffer.dequeue();
         d.setDepartureTime(currTime);
         eventQueue.enqueue(d);
+      }
+      else
+      {
+        e = Event.ARRIVAL;
+        currTime = timeForNextArrival;
+        n++;
+        timeForNextArrival = currTime + getRandTime(arrivalRate);
+        if(n == 1)
+          timeForNextDeparture = currTime + serviceTime;
+        Data arrBuff = new Data();
+        arrBuff.setArrivalTime(currTime);
+        buffer.enqueue(arrBuff);
       }
     }
     return calcAverageWaitingTime();
